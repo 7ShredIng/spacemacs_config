@@ -293,36 +293,51 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-    
+    ;;------------------------------
+    ;;  general spacemacs settings
+    ;;------------------------------        
+    ;; show line numbers
+    (setq dotspacemacs-line-numbers t)
+    (setq truncate-lines t)
+    ;; key mapping ESC to jj     
+    (setq-default evil-escape-key-sequence "jj")
+    (setq-default evil-escape-delay 0.3)  
+    ;;------------------------------
+    ;;  org mode config
+    ;;------------------------------
     ;; python in org-mode
     (org-babel-do-load-languages
         'org-babel-load-languages
         '((python . t)
          ;; other languages..
-        ))  
+        ))
+    
+    ;; set start of week to monday
+    (setq calendar-week-start-day 1)
+    
+    ;;(setq org-agenda-files '())
 
-     ;; key mapping ESC to jj     
-    (setq-default evil-escape-key-sequence "jj")
-    (setq-default evil-escape-delay 0.3)  
-
+    ;;------------------------------
+    ;;  C/C++
+    ;;------------------------------
     ;; see http://spacemacs.org/layers/+lang/c-c++/README.html
-     ;; default header mode is C, configure for C++ as default
-     (setq-default dotspacemacs-configuration-layers
-        '((c-c++ :variables
-           c-c++-default-mode-for-headers 'c++-mode)))
-     
-     ;; Clang support
-     (setq-default dotspacemacs-configuration-layers
-            '((c-c++ :variables c-c++-enable-clang-support t)))
-     
-     (setq-default git-magit-status-fullscreen t)
+    ;; default header mode is C, configure for C++ as default
+    (setq-default dotspacemacs-configuration-layers
+       '((c-c++ :variables
+          c-c++-default-mode-for-headers 'c++-mode)))
+
+    ;; Clang support
+    (setq-default dotspacemacs-configuration-layers
+           '((c-c++ :variables c-c++-enable-clang-support t)))
+    
+    (setq-default git-magit-status-fullscreen t)
             
-     ;; Bind clang-format-region to C-M-tab in all modes:
-     (global-set-key [C-M-tab] 'clang-format-region)
-     ;; Bind clang-format-buffer to tab on the c++-mode only:
-     (add-hook 'c++-mode-hook 'clang-format-bindings)
-        (defun clang-format-bindings ()
-        (define-key c++-mode-map [tab] 'clang-format-buffer))
+    ;; Bind clang-format-region to C-M-tab in all modes:
+    (global-set-key [C-M-tab] 'clang-format-region)
+    ;; Bind clang-format-buffer to tab on the c++-mode only:
+    (add-hook 'c++-mode-hook 'clang-format-bindings)
+       (defun clang-format-bindings ()
+       (define-key c++-mode-map [tab] 'clang-format-buffer))
      
   )
 
@@ -345,10 +360,10 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(custom-enabled-themes (quote (spacemacs-light)))
+ '(custom-enabled-themes (quote (spacemacs-dark)))
  '(custom-safe-themes
    (quote
-    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
