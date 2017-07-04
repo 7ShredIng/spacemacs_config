@@ -293,7 +293,18 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-    
+    ;;------------------------------
+    ;;  general spacemacs settings
+    ;;------------------------------        
+    ;; show line numbers
+    (setq dotspacemacs-line-numbers t)
+    (setq truncate-lines t)
+    ;; key mapping ESC to jj     
+    (setq-default evil-escape-key-sequence "jj")
+    (setq-default evil-escape-delay 0.3)  
+    ;;------------------------------
+    ;;  org mode config
+    ;;------------------------------
     ;; python in org-mode
     (org-babel-do-load-languages
         'org-babel-load-languages
@@ -301,28 +312,32 @@ before packages are loaded. If you are unsure, you should try in setting them in
          ;; other languages..
         ))  
 
-     ;; key mapping ESC to jj     
-    (setq-default evil-escape-key-sequence "jj")
-    (setq-default evil-escape-delay 0.3)  
-
+    ;; set start of week to monday
+    (setq calendar-week-start-day 1)
+    
+    ;;(setq org-agenda-files '())
+    
+    ;;------------------------------
+    ;;  C/C++
+    ;;------------------------------    
     ;; see http://spacemacs.org/layers/+lang/c-c++/README.html
-     ;; default header mode is C, configure for C++ as default
-     (setq-default dotspacemacs-configuration-layers
-        '((c-c++ :variables
-           c-c++-default-mode-for-headers 'c++-mode)))
-     
-     ;; Clang support
-     (setq-default dotspacemacs-configuration-layers
-            '((c-c++ :variables c-c++-enable-clang-support t)))
-     
-     (setq-default git-magit-status-fullscreen t)
-            
-     ;; Bind clang-format-region to C-M-tab in all modes:
-     (global-set-key [C-M-tab] 'clang-format-region)
-     ;; Bind clang-format-buffer to tab on the c++-mode only:
-     (add-hook 'c++-mode-hook 'clang-format-bindings)
-        (defun clang-format-bindings ()
-        (define-key c++-mode-map [tab] 'clang-format-buffer))
+    ;; default header mode is C, configure for C++ as default
+    (setq-default dotspacemacs-configuration-layers
+       '((c-c++ :variables
+          c-c++-default-mode-for-headers 'c++-mode)))
+    
+    ;; Clang support
+    (setq-default dotspacemacs-configuration-layers
+           '((c-c++ :variables c-c++-enable-clang-support t)))
+    
+    (setq-default git-magit-status-fullscreen t)
+           
+    ;; Bind clang-format-region to C-M-tab in all modes:
+    (global-set-key [C-M-tab] 'clang-format-region)
+    ;; Bind clang-format-buffer to tab on the c++-mode only:
+    (add-hook 'c++-mode-hook 'clang-format-bindings)
+       (defun clang-format-bindings ()
+       (define-key c++-mode-map [tab] 'clang-format-buffer))
      
   )
 
