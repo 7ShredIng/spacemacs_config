@@ -1,2 +1,7 @@
 .emacs.d/
+bin/
+libexec/
+org/
+share/
+var/
 *.*~
