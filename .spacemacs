@@ -306,16 +306,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
     ;;------------------------------
     ;;  org mode config
     ;;------------------------------
-    (require 'org)
-    (require 'org-install)
-    (global-set-key (kbd "C-c a") 'org-agenda)
-    (setq org-agenda-show-log t
-          )
+    ;;(require 'org)
+    ;;(require 'org-install)
+    ;;(global-set-key (kbd "C-c a") 'org-agenda)
     ;; set start of week to monday
     (setq calendar-week-start-day 1)
 
-    (setq org-agenda-files (list "d:/applications/emacs/org/todo.org"))
-    (setq org-default-notes-file (list "d:/applications/emacs/org/notes.org"))
+    (setq org-agenda-files '("~/org/todo.org"))
+    (setq org-default-notes-file '("~/org/notes.org"))
     ;; python in org-mode
     (org-babel-do-load-languages
         'org-babel-load-languages
@@ -323,8 +321,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
           (C . t)
          ;; other languages..
         ))
-    (setq org-src-fontify-natively t
-      org-confirm-babel-evaluate nil)
 
     ;;------------------------------
     ;;  C/C++
