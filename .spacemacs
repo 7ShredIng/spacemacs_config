@@ -44,7 +44,7 @@ values."
      emacs-lisp
      git
      markdown
-     ;; org
+     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -130,7 +130,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-light)
+   dotspacemacs-themes '(spacemacs-dark
+                         spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -295,50 +296,58 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
     ;;------------------------------
     ;;  general spacemacs settings
-    ;;------------------------------        
+    ;;------------------------------
     ;; show line numbers
     (setq dotspacemacs-line-numbers t)
     (setq truncate-lines t)
-    ;; key mapping ESC to jj     
+    ;; key mapping ESC to jj
     (setq-default evil-escape-key-sequence "jj")
-    (setq-default evil-escape-delay 0.3)  
+    (setq-default evil-escape-delay 0.3)
     ;;------------------------------
     ;;  org mode config
     ;;------------------------------
+    (require 'org)
+    (require 'org-install)
+    (global-set-key (kbd "C-c a") 'org-agenda)
+    (setq org-agenda-show-log t
+          )
+    ;; set start of week to monday
+    (setq calendar-week-start-day 1)
+
+    (setq org-agenda-files (list "d:/applications/emacs/org/todo.org"))
+    (setq org-default-notes-file (list "d:/applications/emacs/org/notes.org"))
     ;; python in org-mode
     (org-babel-do-load-languages
         'org-babel-load-languages
         '((python . t)
+          (C . t)
          ;; other languages..
-        ))  
+        ))
+    (setq org-src-fontify-natively t
+      org-confirm-babel-evaluate nil)
 
-    ;; set start of week to monday
-    (setq calendar-week-start-day 1)
-    
-    ;;(setq org-agenda-files '())
-    
     ;;------------------------------
     ;;  C/C++
-    ;;------------------------------    
+    ;;------------------------------
     ;; see http://spacemacs.org/layers/+lang/c-c++/README.html
     ;; default header mode is C, configure for C++ as default
     (setq-default dotspacemacs-configuration-layers
        '((c-c++ :variables
           c-c++-default-mode-for-headers 'c++-mode)))
-    
+
     ;; Clang support
     (setq-default dotspacemacs-configuration-layers
            '((c-c++ :variables c-c++-enable-clang-support t)))
-    
+
     (setq-default git-magit-status-fullscreen t)
-           
+
     ;; Bind clang-format-region to C-M-tab in all modes:
     (global-set-key [C-M-tab] 'clang-format-region)
     ;; Bind clang-format-buffer to tab on the c++-mode only:
     (add-hook 'c++-mode-hook 'clang-format-bindings)
        (defun clang-format-bindings ()
        (define-key c++-mode-map [tab] 'clang-format-buffer))
-     
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -360,14 +369,14 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(custom-enabled-themes (quote (spacemacs-light)))
+ '(custom-enabled-themes (quote (spacemacs-dark)))
  '(custom-safe-themes
    (quote
-    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (company-anaconda smeargle orgit org mwim magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit-popup git-commit with-editor diff-hl company-web web-completion-data company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete mmm-mode markdown-toc markdown-mode gh-md yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic magit auctex web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme))))
+    (org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot unfill key-chord fuzzy company-anaconda smeargle orgit org mwim magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit-popup git-commit with-editor diff-hl company-web web-completion-data company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete mmm-mode markdown-toc markdown-mode gh-md yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic magit auctex web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
