@@ -6,3 +6,6 @@ share/
 var/
 *.*~
 .spacemacs.ori
+.android/uid.txt
+emacs_backtrace.txt
+*.ori
