@@ -1,2 +1,1 @@
-set HOME=.\
-bin\runemacs.exe %*
+bin\emacsclientw.exe -na  bin\runemacs.exe "%1"
