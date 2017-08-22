@@ -305,14 +305,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  
-    (setq evil-move-cursor-back nil)
-  
-    ;;------------------------------
-    ;; speedbar
-    ;;------------------------------
-    (require 'sr-speedbar)
-    (setq speedbar-show-unknown-files t)
 
     ;;------------------------------
     ;;  general spacemacs settings
@@ -323,6 +315,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
     ;; key mapping ESC to jj
     (setq-default evil-escape-key-sequence "jj")
     (setq-default evil-escape-delay 0.3)
+    ;; disable cursor jump
+    (setq evil-move-cursor-back nil)
     
     ;;-------------------------------------------
     ;; PATH variables
@@ -333,8 +327,16 @@ before packages are loaded. If you are unsure, you should try in setting them in
         (concat gnu-global-bin ";" grep-bin ";")
     )
     (add-to-list 'exec-path gnu-global-bin)
-    (add-to-list 'exec-path grep-bin)
-    
+    (add-to-list 'exec-path grep-bin)  
+  
+    ;;-------------------------------------------
+    ;; magit
+    ;;-------------------------------------------
+    (setq-default git-magit-status-fullscreen t)
+    (setq-default git-enable-magit-svn-plugin t)
+    (setq magit-repository-directories '("D:/"))
+    (global-git-commit-mode t)
+  
     ;;-------------------------------------------
     ;; ggtags
     ;;-------------------------------------------
@@ -481,7 +483,13 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-;;  (setq-default evil-escape-key-sequence "jj")
+  
+    ;;------------------------------
+    ;; speedbar
+    ;;------------------------------
+    (require 'sr-speedbar)
+    (setq speedbar-show-unknown-files t)
+  
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
